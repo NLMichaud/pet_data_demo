@@ -53,7 +53,7 @@ ggplot(over_100_pets,
 ggplot(over_100_pets,
        aes(x = animals_name, y = number_of_pets)) + 
   geom_col() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  coord_flip()
 
 ## much better.  what is the most common pet name?  what's the least common?
 
@@ -61,7 +61,8 @@ ggplot(over_100_pets,
 ggplot(over_100_pets,
        aes(x = reorder(animals_name, number_of_pets), y = number_of_pets)) +
   geom_col() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  coord_flip()
+
 
 
 ### challenge!  what if we know what pet names that have at least 35 characters in them.
