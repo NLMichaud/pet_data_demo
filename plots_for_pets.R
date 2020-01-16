@@ -31,9 +31,8 @@ ggplot(cats_and_dogs, aes(x = percent_cat_owners, y = percent_dog_owners)) + geo
 
 
 ## Okay, now let's look at pet names
-pet_names <- read.csv('https://github.com/rfordatascience/tidytuesday/raw/master/data/2019/2019-03-26/seattle_pets.csv',
+pet_names <- read.csv('https://raw.githubusercontent.com/NLMichaud/pet_data_demo/master/pet_names.csv',
                       stringsAsFactors = FALSE)
-pet_names <- filter(pet_names, !is.na(animals_name))
 
 ## what data do we have?
 head(pet_names)
@@ -42,22 +41,8 @@ head(pet_names)
 unique(pet_names$animals_name)
 
 ## so many pet names!  how can we figure out the most popular ones?
-## we're going to summarize the pet names real quick.
-## for each pet name, we want to know how many pets have that name, 
-## and how long the name is
-pet_names_summary <- pet_names %>% group_by(animals_name) %>%
-  summarize(number_of_pets = n(),
-            name_length = nchar(first(animals_name))) %>%
-  ungroup()
-
-write.csv(pet_names_summary, file = 'pet_names.csv')
-
-## what does our new data look like?
-head(pet_names_summary)
-
-## still a lot of names.  let's only look at names that have at least 100 pets with that name/
-over_100_pets <- filter(pet_names_summary,  number_of_pets > 100)
-
+## let's only look at names that have at least 100 pets with that name
+over_100_pets <- filter(pet_names,  number_of_pets > 100)
 
 ## now we can plot it!
 ggplot(over_100_pets,
@@ -82,5 +67,4 @@ ggplot(over_100_pets,
 ### challenge!  what if we know what pet names that have at least 35 characters in them.
 ### how should we get this??
 
-filter(pet_names_summary, name_length >= 35)
 
